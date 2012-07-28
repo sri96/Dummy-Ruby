@@ -232,6 +232,142 @@ def write_and_open_random_paragraph_file(paragraphs, where_to_save_it)
 
 end
 
+def write_paragraphs_as_a_list(paragraphs, where_to_save_it)
+
+  while where_to_save_it[-1] == "\\"
+
+    where_to_save_it.pop
+
+  end
+
+  file_name = where_to_save_it+"\\"+"dummytextlist.txt"
+
+  if File.exists?(file_name)
+
+    file_id = File.open(file_name, 'w')
+
+  else
+
+    file_id = File.new(file_name, 'w')
+
+  end
+
+  for x in (0...paragraphs.length)
+
+    for y in paragraphs[x]
+
+      file_id.puts "* "+ y
+
+
+
+
+    end
+
+    file_id.puts "\n"
+
+  end
+
+  file_id.close
+
+  system %{cmd /c "start #{file_name}"}
+
+
+
+
+end
+
+def write_words(words,where_to_save_it)
+
+  while where_to_save_it[-1] == "\\"
+
+    where_to_save_it.pop
+
+  end
+
+  file_name = where_to_save_it+"\\"+"dummywords.txt"
+
+  if File.exists?(file_name)
+
+    file_id = File.open(file_name, 'w')
+
+  else
+
+    file_id = File.new(file_name, 'w')
+
+  end
+
+  for x in words
+
+     file_id.puts x
+
+
+  end
+
+  file_id.close
+
+  system %{cmd /c "start #{file_name}"}
+
+end
+
+def find_given_amount_of_words(paragraph_array,no_of_words)
+
+  rand_number = Random.rand(paragraph_array.length)
+
+  no_of_words_achieved = false
+
+  no_of_words_extracted = 0
+
+  final_export = []
+
+  while no_of_words_achieved == false
+
+    random_paragraph = paragraph_array[rand_number]
+
+    for x in random_paragraph
+
+      current_row = x
+
+      tokenized_current_row = current_row.split(" ")
+
+      no_of_words_extracted = no_of_words_extracted + tokenized_current_row.length
+
+      if no_of_words_extracted >= no_of_words
+
+         break
+
+
+      else
+
+        final_export << current_row
+
+
+      end
+
+    end
+
+    if no_of_words_extracted >= no_of_words
+
+      break
+
+    else
+
+       rand_number = Random.rand(paragraph_array.length)
+
+       final_export << "\n"
+
+    end
+
+
+
+
+  end
+
+  return final_export
+
+
+end
+
+
 
 def dummy_text_generator(input_choice, no_to_generate, saving_location)
 
@@ -280,9 +416,98 @@ def dummy_text_generator(input_choice, no_to_generate, saving_location)
     write_and_open_random_paragraph_file(randomly_generated_paragraphs, saving_location)
 
 
+  elsif input_choice == 3
+
+    current_directory = Dir.pwd
+
+    dir_contents = Dir.glob "*.txt"
+
+    for x in (0..dir_contents.length-1)
+
+      current_row = dir_contents[x]
+
+      current_row = current_directory+"/"+current_row
+
+      dir_contents[x] = current_row
+
+
+    end
+
+    random_file_contents = choose_a_file_randomly(dir_contents)
+
+    whitespace_index = find_all_whitespaces(random_file_contents)
+
+    last_line = random_file_contents[-1]
+
+    last_line = last_line.strip
+
+    while last_line.empty?
+
+      random_file_contents.pop()
+
+      last_line = random_file_contents[-1]
+
+      last_line = last_line.strip
+
+
+    end
+
+    paragraph_array = find_and_extract_paragraphs(whitespace_index, random_file_contents)
+
+    randomly_generated_paragraphs = produce_random_paragraphs(paragraph_array, no_to_generate)
+
+    write_paragraphs_as_a_list(randomly_generated_paragraphs,saving_location)
+
+
+
+  elsif input_choice == 2
+
+    current_directory = Dir.pwd
+
+    dir_contents = Dir.glob "*.txt"
+
+    for x in (0..dir_contents.length-1)
+
+      current_row = dir_contents[x]
+
+      current_row = current_directory+"/"+current_row
+
+      dir_contents[x] = current_row
+
+
+    end
+
+    random_file_contents = choose_a_file_randomly(dir_contents)
+
+    whitespace_index = find_all_whitespaces(random_file_contents)
+
+    last_line = random_file_contents[-1]
+
+    last_line = last_line.strip
+
+    while last_line.empty?
+
+      random_file_contents.pop()
+
+      last_line = random_file_contents[-1]
+
+      last_line = last_line.strip
+
+
+    end
+
+    paragraph_array = find_and_extract_paragraphs(whitespace_index, random_file_contents)
+
+    words = find_given_amount_of_words(paragraph_array,no_to_generate)
+
+    write_words(words,saving_location)
+
+
+
+
   end
 
 
 end
 
-
+dummy_text_generator(3,5,"C:\\Users\\Amma\\Desktop")
