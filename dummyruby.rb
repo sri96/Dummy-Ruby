@@ -510,4 +510,3 @@ def dummy_text_generator(input_choice, no_to_generate, saving_location)
 
 end
 
-dummy_text_generator(3,5,"C:\\Users\\Amma\\Desktop")
