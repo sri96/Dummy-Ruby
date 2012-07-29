@@ -1,8 +1,9 @@
 #Dummyruby is a simple dummy text generator written in ruby. It produces dummy text by extracting random paragraphs and
-#words from public domain works. Currently it can only generate a given number of paragraphs. We are planning to
-#add more functionality
+#words from public domain works.It can produce paragraphs, words and lists. All of them are compatible with markdown.
 
 def choose_a_file_randomly(contents_of_the_directory)
+
+  #This method chooses a file from the directory randomly
 
   random_number = Random.rand(0...contents_of_the_directory.length)
 
@@ -309,6 +310,27 @@ def write_words(words,where_to_save_it)
 
 end
 
+def find_some_words(paragraph_array,no_of_words_needed)
+
+
+  random_paragraph_index = Random.rand(paragraph_array.length)
+
+  random_paragraph = paragraph_array[random_paragraph_index]
+
+  random_line_index = Random.rand(random_paragraph.length)
+
+  random_line = random_paragraph[random_line_index]
+
+  random_line_tokens = random_line.split(" ")
+
+  needed_line = random_line_tokens[0...no_of_words_needed]
+
+  return needed_line.join(" ")
+
+
+end
+
+
 def find_given_amount_of_words(paragraph_array,no_of_words)
 
   rand_number = Random.rand(paragraph_array.length)
@@ -356,6 +378,23 @@ def find_given_amount_of_words(paragraph_array,no_of_words)
        final_export << "\n"
 
     end
+
+
+
+
+  end
+
+  if no_of_words_extracted > no_of_words
+
+    last_row = final_export[-1]
+
+    final_export.delete_at(-1)
+
+    last_row_tokens = last_row.split(" ")
+
+    no_of_words_extracted = no_of_words_extracted - last_row_tokens.length
+
+    final_export << find_some_words(paragraph_array,no_of_words-no_of_words_extracted)
 
 
 
@@ -510,3 +549,4 @@ def dummy_text_generator(input_choice, no_to_generate, saving_location)
 
 end
 
+dummy_text_generator(2,750,"C:\\Users\\Amma\\Desktop")
