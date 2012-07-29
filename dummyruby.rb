@@ -20,6 +20,9 @@ end
 
 def find_all_whitespaces(file_contents)
 
+  #This method finds all the whitespaces inside a opened file. Whitespaces are necessary to identify paragraphs inside
+  #a txt file.
+
   whitespace_index = []
 
   for current_index in (0...file_contents.length)
@@ -42,6 +45,10 @@ def find_all_whitespaces(file_contents)
 end
 
 def extract_paragraph(passage_start, file_contents)
+
+  #This method is designed to extract paragraphs from the text files. It starts at the start of paragraph and extracts all
+  #the lines until it reaches an empty line.
+
 
   starting_index = file_contents.index(passage_start)
 
@@ -71,6 +78,8 @@ def extract_paragraph(passage_start, file_contents)
 end
 
 def find_and_extract_paragraphs(whitespaces, file_contents)
+
+  #This method extracts paragraphs from the opened txt file and returns an array with all the paragraphs
 
   paragraph_line_counter = 0
 
@@ -150,13 +159,15 @@ def find_and_extract_paragraphs(whitespaces, file_contents)
 
 end
 
-def produce_random_paragraphs(paragraph_array, no_of_paragraphs)
+def produce_random_paragraphs(paragraph_array, no_of_paragraphs_needed)
+
+  #This method extracts random passages from an array of paragraphs and returns the needed number of array requested by the caller
 
   random_paragraph_index = []
 
   final_output = []
 
-  for x in (0...no_of_paragraphs)
+  for x in (0...no_of_paragraphs_needed)
 
     random_number = Random.rand(0..paragraph_array.length)
 
@@ -179,7 +190,7 @@ def produce_random_paragraphs(paragraph_array, no_of_paragraphs)
 
   end
 
-  for y in (0...no_of_paragraphs)
+  for y in (0...no_of_paragraphs_needed)
 
     final_output << paragraph_array[random_paragraph_index[y]]
 
@@ -192,6 +203,8 @@ def produce_random_paragraphs(paragraph_array, no_of_paragraphs)
 end
 
 def write_and_open_random_paragraph_file(paragraphs, where_to_save_it)
+
+  #This method calls method which extracts random passages and writes it a .txt file and opens it automatically for us.
 
   while where_to_save_it[-1] == "\\"
 
@@ -234,6 +247,9 @@ def write_and_open_random_paragraph_file(paragraphs, where_to_save_it)
 end
 
 def write_paragraphs_as_a_list(paragraphs, where_to_save_it)
+
+  #This method calls method which produces random paragraphs and reformats it as a markdown compatible bulleted list with each line
+  #of the paragraph as an element of a list.
 
   while where_to_save_it[-1] == "\\"
 
@@ -279,6 +295,8 @@ end
 
 def write_words(words,where_to_save_it)
 
+  #This method writes the generated number of words in the location in which it was requested to be saved.
+
   while where_to_save_it[-1] == "\\"
 
     where_to_save_it.pop
@@ -312,6 +330,7 @@ end
 
 def find_some_words(paragraph_array,no_of_words_needed)
 
+  #This method produces filler words that are need to bridge the gap between generated words and requested words.
 
   random_paragraph_index = Random.rand(paragraph_array.length)
 
@@ -332,6 +351,10 @@ end
 
 
 def find_given_amount_of_words(paragraph_array,no_of_words)
+
+  #This method generates the requested amount of words.This uses a different simple word counting algorithm from microsoft word and
+  #other commercial word processing software. So if you copy and paste this into word and count the number of words inside the
+  #software, it is usually lesser number of words but not a whole lot lesser. This problem will be left unfixed.
 
   rand_number = Random.rand(paragraph_array.length)
 
@@ -410,7 +433,8 @@ end
 
 def dummy_text_generator(input_choice, no_to_generate, saving_location)
 
-  #Currently, the method provides only one choice for input_choice.
+  #This method is the main method which controls all the methods above it. It is the method that you as a user needs to use
+  #to generate dummy text.
 
   if input_choice == 1
 
@@ -549,4 +573,3 @@ def dummy_text_generator(input_choice, no_to_generate, saving_location)
 
 end
 
-dummy_text_generator(2,750,"C:\\Users\\Amma\\Desktop")
