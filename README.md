@@ -1,7 +1,7 @@
 Dummy Ruby
 =========
 
-Dummy Ruby is a ruby dummy text printer written to programmatically produce dummy text from public domain works. It is under development. 
+Dummy Ruby is a ruby dummy text printer written to programmatically produce dummy text from public domain works. It is stable and is available for release.
 
 It is a fun project intended to replace old age lorem ipsum dummy text. 
 
