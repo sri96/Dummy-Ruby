@@ -9,3 +9,5 @@ The function will rely on a number of text files in which public domain books wi
 If you want to add offline version files to the repository, you can do so by downloading files from Project Gutenberg.
 
 The documentation is available at https://github.com/adhithyan15/Dummy-Ruby/wiki/Documentation
+
+Authors: Adhithya Rajasekaran and Sri Madhavi Rajasekaran
